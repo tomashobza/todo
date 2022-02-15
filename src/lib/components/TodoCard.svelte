@@ -29,7 +29,7 @@
     <div>
         <Tick ticked={todo.done} on:click={tickSwitch} />
     </div>
-    <div class="font-bold flex-grow h-full" class:line-through={todo.done} on:click={openTodo}>
+    <div class="font-bold flex-grow h-full truncate" class:line-through={todo.done} on:click={openTodo}>
         {todo.title}
     </div>
     <div class="w-4 h-4 text-gray-500">
