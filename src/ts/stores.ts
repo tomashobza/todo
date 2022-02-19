@@ -3,6 +3,7 @@ import { derived, writable } from "svelte/store";
 export const todos = writable([]);
 todos.set([
     {
+        todoId: "lulw",
         done: false,
         title: "Shopping list",
         list: [
@@ -12,6 +13,7 @@ todos.set([
         ],
     },
     {
+        todoId: "nevimxdd",
         done: true,
         title: "Homework",
         list: [
