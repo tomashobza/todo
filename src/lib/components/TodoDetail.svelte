@@ -1,11 +1,14 @@
 <script>
     import ArrowLeft from "$lib/svg/ArrowLeft.svelte";
     import Share from "$lib/svg/Share.svelte";
+    import Save from "$lib/svg/Save.svelte";
 
     import TodoDetailItem from "./TodoDetailItem.svelte";
 
     import { fade } from "svelte/transition";
     import { selectedTodo } from "$ts/stores";
+
+    let newItem;
 
     function closeTodo() {
         selectedTodo.set(null);
@@ -17,6 +20,16 @@
 
     function removeItem(e) {
         $selectedTodo.list = $selectedTodo.list.filter((x, i) => i != e.detail);
+    }
+
+    function keyPressed(e) {
+        if (e.charCode === 13) addItem();
+    }
+
+    function addItem() {
+        $selectedTodo.list.push({ title: newItem, done: false });
+        $selectedTodo = $selectedTodo;
+        newItem = "";
     }
 </script>
 
@@ -32,11 +45,18 @@
             </div>
         </div>
 
-        <div class="w-full flex flex-col items-stretch gap-4 p-4">
+        <div class="w-full flex flex-col flex-grow items-stretch gap-4 p-4">
             {#each $selectedTodo.list as item, i}
                 <TodoDetailItem {item} {i} on:remove={removeItem} />
             {/each}
         </div>
-        <div class="text-gray-400">| Type here..</div>
+        <div class="w-full p-4 flex flex-row items-center">
+            <input type="text" class="border-b flex-grow py-2" on:keypress={keyPressed} bind:value={newItem} placeholder="Add a task...">
+            <div class="transition-all text-white rounded-r-lg h-full flex items-center justify-center p-2 cursor-pointer">
+                <div class="w-6 text-[#ffb7bd] hover:text-[#cc9094]" on:click={addItem}>
+                    <Save />
+                </div>
+            </div>
+        </div>
     </div>
 {/if}
