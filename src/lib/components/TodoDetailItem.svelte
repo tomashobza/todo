@@ -10,10 +10,10 @@
     export let item: any;
     export let i;
 
-    let value = item?.title || "";
+    export let title = "";
 
-    function change() {
-        $selectedTodo.list[i].title = value;
+    function change(e) {
+        $selectedTodo.list[i].title = e.target.value;
     }
 
     function click() {
@@ -37,7 +37,7 @@
 
 <div class="flex flex-row items-center gap-2" class:line-through={item.done} on:mouseenter={focus} on:mouseleave={blur}>
     <DetailTick ticked={item?.done} on:click={click} />
-    <input type="text" class="truncate flex-grow" on:input={change} bind:value={value}>
+    <input type="text" class="truncate flex-grow" on:input={change} bind:value={title}>
     {#if showDelete}
         <div class="w-5 text-red-400 cursor-pointer" on:click={remove}>
             <Trashcan />
