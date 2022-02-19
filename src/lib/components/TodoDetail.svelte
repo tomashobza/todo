@@ -15,7 +15,11 @@
     }
 
     function shareTodo() {
-        // TODO share todo
+        navigator.share({
+            title: $selectedTodo.title,
+            text: 'I created a TODO list, check it out!',
+            url: $selectedTodo.todoId,
+        })
     }
 
     function removeItem(e) {
@@ -27,6 +31,7 @@
     }
 
     function addItem() {
+        if (!newItem) return;
         $selectedTodo.list.push({ title: newItem, done: false });
         $selectedTodo = $selectedTodo;
         newItem = "";
@@ -36,16 +41,16 @@
 {#if $selectedTodo}
     <div class="w-full h-full px-4 py-6 flex flex-col" transition:fade>
         <div class="w-full flex flex-row items-center gap-2">
-            <div on:click={closeTodo} class="p-2">
+            <div on:click={closeTodo} class="p-2 cursor-pointer transition-all hover:scale-110">
                 <ArrowLeft />
             </div>
             <div class="font-semibold flex-grow truncate" class:line-through={$selectedTodo.done}>{$selectedTodo?.title || "uknown title"}</div>
-            <div class="justify-self-end pr-2" on:click={shareTodo}>
+            <div class="justify-self-end pr-2 cursor-pointer transition-all hover:scale-110" on:click={shareTodo}>
                 <Share />
             </div>
         </div>
 
-        <div class="w-full flex flex-col flex-grow items-stretch gap-4 p-4">
+        <div class="w-full flex flex-col flex-grow items-stretch gap-4 p-4 overflow-y-auto">
             {#each $selectedTodo.list as item, i}
                 <TodoDetailItem {item} {i} on:remove={removeItem} />
             {/each}
