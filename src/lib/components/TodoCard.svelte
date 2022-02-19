@@ -25,11 +25,11 @@
     }
 </script>
 
-<div class="w-full rounded-2xl bg-white p-6 flex flex-row items-center gap-4">
+<div class="w-full rounded-2xl bg-white px-6 flex flex-row items-center gap-4">
     <div>
         <Tick ticked={todo.done} on:click={tickSwitch} />
     </div>
-    <div class="font-bold flex-grow h-full truncate" class:line-through={todo.done} on:click={openTodo}>
+    <div class="font-bold flex-grow h-full truncate py-7" class:line-through={todo.done} on:click={openTodo}>
         {todo.title}
     </div>
     <div class="w-4 h-4 text-gray-500">
