@@ -20,6 +20,10 @@
     }
 
     function openTodo() {
+        if ($selectedTodo) {
+            selectedTodo.set(null);
+            return;
+        }
         selectedTodo.set(todo);
         open = true;
     }
