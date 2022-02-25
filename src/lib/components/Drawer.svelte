@@ -25,7 +25,8 @@
     }
 
     .closed {
-        @apply translate-y-[92%];
+        /* @apply translate-y-[92%]; */
+        transform: translateY(calc(100% - 4rem));
     }    
 
     .rotate {
