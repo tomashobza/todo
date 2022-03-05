@@ -1,12 +1,16 @@
 <script lang="ts">
+import { goto } from "$app/navigation";
+
     import MoveHolder from "$lib/svg/MoveHolder.svelte";
     import { selectedTodo } from "$ts/stores";
     import Tick from "./Tick.svelte";  
 
     export let todo: {
+        id: string;
         done: boolean;
         title: string;
     } = {
+        id: "",
         done: false,
         title: "unknown title",
     };
@@ -24,6 +28,9 @@
             selectedTodo.set(null);
             return;
         }
+
+        goto(`/${todo?.id || ""}`);
+
         selectedTodo.set(todo);
         open = true;
     }
