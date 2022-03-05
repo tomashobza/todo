@@ -7,10 +7,13 @@
 
     import { fade } from "svelte/transition";
     import { selectedTodo } from "$ts/stores";
+    import { goto } from "$app/navigation";
 
     let newItem;
 
     function closeTodo() {
+        goto("/")
+
         selectedTodo.set(null);
     }
 
@@ -39,7 +42,7 @@
 </script>
 
 {#if $selectedTodo}
-    <div class="w-full h-full px-4 py-6 flex flex-col" transition:fade>
+    <div class="w-full h-full px-4 py-6 flex flex-col overflow-hidden" transition:fade>
         <div class="w-full flex flex-row items-center gap-2">
             <div on:click={closeTodo} class="p-2 cursor-pointer transition-all hover:scale-110">
                 <ArrowLeft />
