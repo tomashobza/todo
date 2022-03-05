@@ -15,6 +15,8 @@
     }
 
     function shareTodo() {
+        // TODO add copy to clipboard when no navigator.share
+
         navigator.share({
             title: $selectedTodo.title,
             text: 'I created a TODO list, check it out!',
