@@ -1,5 +1,5 @@
-<script>
-    import Main from "$lib/components/Main.svelte";
+<!-- <script>
+    // import Main from "$lib/components/Main.svelte";
 </script>
 
-<Main />
+<Main /> -->
