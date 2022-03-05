@@ -1,5 +1,15 @@
 <script>
     import "../app.css";
+    import Main from "$lib/components/Main.svelte";
+    import { page } from '$app/stores';
+    import { todos } from "$ts/stores";
+
+    let indexOfSelected = null;
+
+    $: if ($page.params.slug) indexOfSelected = $todos.findIndex((elem) => elem.id == $page.params.slug);
+    $: console.log(indexOfSelected, $todos.findIndex((elem) => elem.id == $page.params.slug));
+
+    // $: console.log($page.params.slug);
 </script>
 
 <svelte:head>
@@ -10,4 +20,4 @@
 	<title>TODO</title>
 </svelte:head>
 
-<slot />
+<Main />
