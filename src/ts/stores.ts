@@ -3,7 +3,7 @@ import { derived, writable } from "svelte/store";
 export const todos = writable([]);
 todos.set([
     {
-        todoId: "lulw",
+        id: "lulw",
         done: false,
         title: "Shopping list",
         list: [
@@ -13,7 +13,7 @@ todos.set([
         ],
     },
     {
-        todoId: "nevimxdd",
+        id: "nevimxdd",
         done: true,
         title: "Homework",
         list: [
@@ -32,3 +32,5 @@ export const todosWithId = derived(todos, ($todos) =>
 
 export const selectedTodo = writable(null);
 export const openedDrawer = writable(false);
+
+export const popups = writable([]);
