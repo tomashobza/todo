@@ -1,5 +1,5 @@
 <script lang="ts">
-import { goto } from "$app/navigation";
+    import { goto } from "$app/navigation";
 
     import MainScreen from "$lib/components/MainScreen.svelte";
     import TodoDetail from "$lib/components/TodoDetail.svelte";
