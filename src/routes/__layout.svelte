@@ -10,6 +10,8 @@
     $: console.log(indexOfSelected, $todos.findIndex((elem) => elem.id == $page.params.slug));
 
     // $: console.log($page.params.slug);
+    import Toast from "$lib/components/Toast.svelte";
+    import { popups } from "$ts/stores";
 </script>
 
 <svelte:head>
@@ -20,4 +22,9 @@
 	<title>TODO</title>
 </svelte:head>
 
+<div class="absolute z-50 w-full h-full pointer-events-none flex flex-col items-end overflow-x-hidden overflow-y-auto justify-start">
+    {#each $popups as popup, i (popup)}
+        <Toast label={popup?.label} color={popup?.color} {i} />
+    {/each}
+</div>
 <Main />

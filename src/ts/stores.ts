@@ -32,3 +32,5 @@ export const todosWithId = derived(todos, ($todos) =>
 
 export const selectedTodo = writable(null);
 export const openedDrawer = writable(false);
+
+export const popups = writable([]);
