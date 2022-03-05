@@ -10,7 +10,7 @@
     export let item: any;
     export let i;
 
-    export let title = "";
+    let title = item.title;
 
     function change(e) {
         $selectedTodo.list[i].title = e.target.value;
