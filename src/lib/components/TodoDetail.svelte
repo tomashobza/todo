@@ -56,7 +56,7 @@
         </div>
 
         <div class="w-full flex flex-col flex-grow items-stretch gap-4 p-4 overflow-y-auto">
-            {#each $selectedTodo.list as item, i}
+            {#each $selectedTodo.list as item, i (item)}
                 <TodoDetailItem {item} {i} on:remove={removeItem} />
             {/each}
         </div>
