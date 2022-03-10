@@ -18,7 +18,7 @@
 
 </script>
 
-<div class="w-full h-full flex flex-col items-stretch overflow-y-auto overflow-x-hidden px-4 gap-4" use:dndzone={{items, flipDurationMs, dropTargetStyle: {outline: 'none'}}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
+<div class="w-full h-full flex flex-col items-stretch overflow-y-auto overflow-x-hidden px-4 gap-4 pb-20" use:dndzone={{items, flipDurationMs, dropTargetStyle: {outline: 'none'}}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
     {#each items as item (item.id)}
         <div animate:flip="{{duration: flipDurationMs}}">
             <TodoCard todo={item} />
