@@ -2,7 +2,7 @@
     import Circles from "$lib/svg/Circles.svelte";    
     import TodoList from "./TodoList.svelte";
     import Drawer from "./Drawer.svelte";
-    import { todosWithId } from "$ts/stores";
+    import { todos } from "$ts/stores";
 
     export let todoOpen: boolean;
 </script>
@@ -21,13 +21,13 @@
             Your TODO's
         </div>
         
-        <div class="flex-grow">
-            <TodoList items={$todosWithId} />
+        <div class="flex-grow overflow-y-auto">
+            <TodoList items={$todos} />
         </div>
     </div>
 
     <!-- Drawer -->
-    <div class="pointer-events-none absolute w-full h-full top-0 left-0 flex flex-col items-center pt-4">
+    <div class="pointer-events-none absolute w-full h-full top-0 left-0 flex flex-col justify-end items-center pt-4">
         <Drawer hide={todoOpen} />
     </div>
 </div>
