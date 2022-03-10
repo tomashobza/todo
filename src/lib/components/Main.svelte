@@ -6,8 +6,8 @@
 
     import { selectedTodo, openedDrawer } from "$ts/stores";
     import { swipe } from 'svelte-gestures';
-    // import { page } from '$app/stores';
 
+    /** Handle swiping */
     function handler(event) {
         if (event.detail.direction === "right") {
             selectedTodo.set(null);
@@ -20,13 +20,10 @@
     let innerHeight: number;
     let innerWidth: number;
 
-
     let todoOpen = false;
     
-    $: if (!!$selectedTodo) setTimeout(() => todoOpen = !!($selectedTodo), 500);
-
-    // $: console.log(todoOpen);
-    // $: console.log(todoOpen, $selectedTodo, "penis");
+    // Open TODO detail, if there's a selected TODO
+    $: todoOpen = !!($selectedTodo);
 </script>
 
 <svelte:window bind:innerHeight bind:innerWidth />
@@ -40,7 +37,7 @@
             <MainScreen {todoOpen} />
         </div>
 
-        <!-- todo detail -->
+        <!-- TODO detail -->
         <div class="w-[350px] h-full bg-white flex-shrink-0 transition-all overflow-hidden">
             <TodoDetail />
         </div>
