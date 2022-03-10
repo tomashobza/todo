@@ -11,13 +11,6 @@
 
     let mounted = false;
     onMount(() => mounted = true);
-
-    let indexOfSelected = null;
-
-    $: if ($page.params.slug) indexOfSelected = $todos.findIndex((elem) => elem.id == $page.params.slug);
-
-    $: if (indexOfSelected < 0) popup("Todo not found.", "bad");
-    $: if (indexOfSelected >= 0) selectedTodo.set($todos[indexOfSelected]);
 </script>
 
 <svelte:head>
@@ -35,4 +28,4 @@
         {/each}
     </div>
 {/if}
-<Main />
+<slot />

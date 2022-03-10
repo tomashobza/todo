@@ -23,8 +23,9 @@
 
     let todoOpen = false;
     
-    $: todoOpen = !!($selectedTodo);
+    $: if (!!$selectedTodo) setTimeout(() => todoOpen = !!($selectedTodo), 500);
 
+    // $: console.log(todoOpen);
     // $: console.log(todoOpen, $selectedTodo, "penis");
 </script>
 
@@ -32,7 +33,7 @@
 
 <!-- overflow container -->
 <div class="w-full h-full overflow-hidden" use:swipe={{ timeframe: 300, minSwipeDistance: 100 }} on:swipe={handler}>
-    <div class="w-full h-full flex flex-row flex-nowrap transition-all duration-500 will-change-transform {todoOpen && "open"}">
+    <div class="w-full h-full flex flex-row flex-nowrap transition-all duration-500 will-change-transform {todoOpen ? "open" : ""}">
         <div
             class="w-full h-full overflow-hidden transition-all duration-500 flex-shrink-0 {todoOpen && "round"}"
             >

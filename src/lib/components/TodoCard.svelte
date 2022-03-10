@@ -31,7 +31,7 @@ import { goto } from "$app/navigation";
 
         goto(`/${todo?.id || ""}`);
 
-        selectedTodo.set(todo);
+        // selectedTodo.set(todo);
         open = true;
     }
 </script>
