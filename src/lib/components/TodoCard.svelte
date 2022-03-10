@@ -1,5 +1,6 @@
 <script lang="ts">
-import { goto } from "$app/navigation";
+    import { goto } from "$app/navigation";
+    import { page } from "$app/stores";
 
     import MoveHolder from "$lib/svg/MoveHolder.svelte";
     import { selectedTodo } from "$ts/stores";
@@ -29,9 +30,11 @@ import { goto } from "$app/navigation";
             return;
         }
 
-        goto(`/${todo?.id || ""}`);
+        $page.url.searchParams.set('id',todo?.id); 
+        goto(`?${$page.url.searchParams.toString()}`);
 
-        // selectedTodo.set(todo);
+        selectedTodo.set(todo);
+
         open = true;
     }
 </script>
