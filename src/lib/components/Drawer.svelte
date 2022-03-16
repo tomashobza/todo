@@ -26,7 +26,7 @@
 </script>
 
 <div class="pointer-events-auto w-full h-[20rem] bg-white bottom-0 rounded-t-3xl max-w-lg transition-all flex flex-col p-4 items-center duration-500 {hide ? 'hide' : $openedDrawer ? '' : 'closed'}">
-	<div on:click={toggleDrawer} class="cursor-pointer py-1 transition-all duration-500 px-4 outline-none focus:outline-none hover:outline-none active:outline-none" class:rotate={$openedDrawer}>
+	<div on:click={toggleDrawer} class="w-full flex justify-center cursor-pointer py-1 transition-all duration-500 px-4 outline-none focus:outline-none hover:outline-none active:outline-none" class:rotate={$openedDrawer}>
 		<ArrowUp />
 	</div>
 
