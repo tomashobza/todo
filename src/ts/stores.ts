@@ -7,9 +7,8 @@ export const savedTodos = writable([]);
 export const todos = derived(savedTodos, ($savedTodos) => {
     // TODO change this to fetch data from firestore
 
-
     // DEV
-    return $savedTodos.map(x => {
+    return $savedTodos?.map(x => {
         // !!! THIS OBJECT STRUCTURE NEEDS TO BE KEPT
         return {
             id: x,
@@ -21,7 +20,7 @@ export const todos = derived(savedTodos, ($savedTodos) => {
                 { title: "Do something...", done: true },
             ],
         };
-    });
+    }) || [];
 });
 
 /** Store that represents the data of currently open TODO */
