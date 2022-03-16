@@ -1,9 +1,12 @@
 import type { TodoList } from '$lib/interfaces/todoList';
 import { derived, writable, type Writable } from 'svelte/store';
-import { fetchTodoListData } from '.';
+import { dumpSavedTodos, fetchTodoListData } from '.';
 
 /** Store that represents the `id`s of TODOs that are save in `localStorage` */
 export const savedTodos = writable<string[]>([]);
+
+// Update ids when the user moves a list card
+savedTodos.subscribe((ids) => ids.length && dumpSavedTodos(ids));
 
 /** Store that represents data of stored TODOs that need to be fetched from firestore. */
 export const todos = derived<typeof savedTodos, TodoList[]>(savedTodos, (ids: string[], set) => {

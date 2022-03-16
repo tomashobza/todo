@@ -3,6 +3,7 @@ import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { get } from 'svelte/store';
 import { modal, popups, savedTodos, todos } from './stores';
 import type { TodoList } from '$lib/interfaces/todoList';
+import { browser } from '$app/env';
 
 /** Shows a popup by pushing new popup to the array of popups. */
 export function popup(label: string, color: 'good' | 'bad') {
@@ -17,6 +18,10 @@ export function closePopup(index: number) {
 /** Loads the `id`s of saved TODOs from the local storage. */
 export function loadSavedTodos() {
 	savedTodos.set(JSON.parse(localStorage.getItem('todos')) || []);
+}
+
+export function dumpSavedTodos(ids: string[]) {
+	browser && localStorage.setItem('todos', JSON.stringify(get(savedTodos)));
 }
 
 /** Saves a TODO `id` to the local storage. */
