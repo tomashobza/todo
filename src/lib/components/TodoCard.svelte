@@ -1,52 +1,57 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
-    import { page } from "$app/stores";
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
-    import MoveHolder from "$lib/svg/MoveHolder.svelte";
-    import { selectedTodo } from "$ts/stores";
-    import Tick from "./Tick.svelte";  
+	import MoveHolder from '$lib/svg/MoveHolder.svelte';
+	import { omitId } from '$lib/utils/misc/withoutId';
+	import { updateTodoListData } from '$ts/';
+	import { pushTodoListData } from '$ts/';
+	import { selectedTodo } from '$ts/stores';
+	import Tick from './Tick.svelte';
 
-    export let todo: {
-        id: string;
-        done: boolean;
-        title: string;
-    } = {
-        id: "",
-        done: false,
-        title: "unknown title",
-    };
+	export let todo: {
+		id: string;
+		done: boolean;
+		title: string;
+	} = {
+		id: '',
+		done: false,
+		title: 'unknown title'
+	};
 
-    let open = false;
+	let open = false;
 
-    $: if (!($selectedTodo)) open = false;
+	$: if (!$selectedTodo) open = false;
 
-    function tickSwitch() {
-        todo.done = !(todo.done);
-    }
+	function tickSwitch() {
+		todo.done = !todo.done;
 
-    function openTodo() {
-        if ($selectedTodo) {
-            selectedTodo.set(null);
-            return;
-        }
+		updateTodoListData(todo.id, omitId(todo));
+	}
 
-        $page.url.searchParams.set('id',todo?.id); 
-        goto(`?${$page.url.searchParams.toString()}`);
+	function openTodo() {
+		if ($selectedTodo) {
+			selectedTodo.set(null);
+			return;
+		}
 
-        selectedTodo.set(todo);
+		$page.url.searchParams.set('id', todo?.id);
+		goto(`?${$page.url.searchParams.toString()}`);
 
-        open = true;
-    }
+		selectedTodo.set(todo);
+
+		open = true;
+	}
 </script>
 
 <div class="w-full rounded-2xl bg-white px-6 flex flex-row items-center gap-4">
-    <div>
-        <Tick ticked={todo.done} on:click={tickSwitch} />
-    </div>
-    <div class="font-bold flex-grow h-full truncate py-7" class:line-through={todo.done} on:click={openTodo}>
-        {todo.title}
-    </div>
-    <div class="w-4 h-4 text-gray-500">
-        <MoveHolder {open} />
-    </div>
+	<div>
+		<Tick ticked={todo.done} on:click={tickSwitch} />
+	</div>
+	<div class="font-bold flex-grow h-full truncate py-7" class:line-through={todo.done} on:click={openTodo}>
+		{todo.title}
+	</div>
+	<div class="w-4 h-4 text-gray-500">
+		<MoveHolder {open} />
+	</div>
 </div>

@@ -1,26 +1,24 @@
-import { derived, writable } from "svelte/store";
+import type { TodoList } from '$lib/interfaces/todoList';
+import { derived, writable, type Writable } from 'svelte/store';
+import { fetchTodoListData } from '.';
 
 /** Store that represents the `id`s of TODOs that are save in `localStorage` */
-export const savedTodos = writable([]);
+export const savedTodos = writable<string[]>([]);
 
 /** Store that represents data of stored TODOs that need to be fetched from firestore. */
-export const todos = derived(savedTodos, ($savedTodos) => {
-    // TODO change this to fetch data from firestore
+export const todos = derived<typeof savedTodos, TodoList[]>(savedTodos, (ids: string[], set) => {
+	async function fetchLists() {
+		const lists: TodoList[] = [];
 
-    // DEV
-    return $savedTodos?.map(x => {
-        // !!! THIS OBJECT STRUCTURE NEEDS TO BE KEPT
-        return {
-            id: x,
-            done: false,
-            title: "Shopping list",
-            list: [
-                { title: "Do something...", done: true },
-                { title: "Do something...", done: false },
-                { title: "Do something...", done: true },
-            ],
-        };
-    }) || [];
+		for (const id of ids) {
+			const list = await fetchTodoListData(id);
+			lists.push(list);
+		}
+
+		set(lists);
+	}
+
+	fetchLists();
 });
 
 /** Store that represents the data of currently open TODO */
