@@ -1,17 +1,26 @@
 <script>
 	import ArrowUp from '$lib/svg/ArrowUp.svelte';
 	import Plus from '$lib/svg/Plus.svelte';
-	import { createTodo } from '$ts/';
-	import { addTodo } from '$ts/';
-	import { openedDrawer } from '$ts/stores';
+	import { getListData } from '$lib/utils/getters';
+	import { createTodo, addTodo } from '$ts/index';
+	import { openedDrawer, selectedTodo } from '$ts/stores';
 
 	export let hide = false;
 
 	let newTodoId = '';
 	let newTodoTitle = '';
 
-	function addTodoClick() {
-		addTodo(newTodoId);
+	async function addTodoClick() {
+		const added = await addTodo(newTodoId);
+
+		// TODO popups
+		if (added) {
+			selectedTodo.set(getListData(newTodoId));
+			openedDrawer.set(false);
+			console.info('Added!');
+		} else {
+			console.info('Already added or not found!');
+		}
 	}
 
 	function createTodoClick() {
@@ -32,7 +41,7 @@
 
 	<div class="w-full flex flex-row px-4 gap-2 my-10">
 		<input class="flex-grow bg-gray-100 p-2 rounded-lg" type="text" placeholder="Add a TODO by id..." bind:value={newTodoId} />
-		<button class="py-2 px-3 flex flex-row items-center gap-1 bg-pink-300 text-sm rounded-lg transition-all hover:bg-pink-400 font-bold" on:click={addTodoClick}>
+		<button class="py-2 px-3 flex flex-row items-center gap-1 bg-pink-300 text-sm rounded-lg transition-all hover:bg-pink-400 font-bold disabled:pointer-events-none disabled:opacity-50" on:click={addTodoClick} disabled={!newTodoId}>
 			<div class="w-4">
 				<Plus />
 			</div>
@@ -52,7 +61,7 @@
 
 	<div class="w-full flex flex-row px-4 gap-2 my-10">
 		<input class="flex-grow bg-gray-100 p-2 rounded-lg" type="text" placeholder="Add title of new TODO..." bind:value={newTodoTitle} />
-		<button class="py-2 px-3 flex flex-row items-center gap-1 bg-pink-300 text-sm rounded-lg transition-all hover:bg-pink-400 font-bold" on:click={createTodoClick}>
+		<button class="py-2 px-3 flex flex-row items-center gap-1 bg-pink-300 text-sm rounded-lg transition-all hover:bg-pink-400 font-bold disabled:pointer-events-none disabled:opacity-50" on:click={createTodoClick} disabled={!newTodoTitle}>
 			<div class="w-4">
 				<Plus />
 			</div>

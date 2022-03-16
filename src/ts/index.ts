@@ -16,7 +16,7 @@ export function closePopup(index: number) {
 
 /** Loads the `id`s of saved TODOs from the local storage. */
 export function loadSavedTodos() {
-	savedTodos.set(JSON.parse(localStorage.getItem('todos')));
+	savedTodos.set(JSON.parse(localStorage.getItem('todos')) || []);
 }
 
 /** Saves a TODO `id` to the local storage. */
@@ -32,13 +32,23 @@ export function openModal(todoId: string) {
 	modal.set(todoId);
 }
 
-/** Checks if the TODO exists in Firestore. If yes, saves the TODO `id`. */
-export function addTodo(todoId: string) {
-	// TODO fetch todo data
-	console.log('add todo');
+/**
+ * Checks if the TODO exists in Firestore. If yes, saves the TODO `id`.
+ * Return a boolean indicating whether the todo list was found or not.
+ */
+export async function addTodo(id: string) {
+	if (get(savedTodos).includes(id)) return false;
 
-	// if TODO was found in Firestore
-	saveTodo(todoId);
+	const data = await fetchTodoListData(id);
+
+	console.log({ data });
+
+	if (data) {
+		saveTodo(id);
+		return true;
+	}
+
+	return false;
 }
 
 /** Creates a new TODO instance in database with set `title`. */
@@ -58,6 +68,10 @@ export async function createTodo(title: string) {
  */
 export async function fetchTodoListData(id: string): Promise<TodoList> {
 	const data = await getDoc(doc(db, `todos/${id}`)).then((snap) => snap.data());
+
+	if (!data) {
+		return null;
+	}
 
 	return {
 		id,
