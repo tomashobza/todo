@@ -4,8 +4,7 @@
 
 	import MoveHolder from '$lib/svg/MoveHolder.svelte';
 	import { omitId } from '$lib/utils/misc/withoutId';
-	import { updateTodoListData } from '$ts/';
-	import { pushTodoListData } from '$ts/';
+	import { updateTodoListData } from '$ts/index';
 	import { selectedTodo } from '$ts/stores';
 	import Tick from './Tick.svelte';
 
@@ -48,7 +47,7 @@
 	<div>
 		<Tick ticked={todo.done} on:click={tickSwitch} />
 	</div>
-	<div class="font-bold flex-grow h-full truncate py-7" class:line-through={todo.done} on:click={openTodo}>
+	<div class="font-bold flex-grow h-full truncate py-7 transition duration-500" class:line-through={todo.done} class:opacity-0={!todo.title} on:click={openTodo}>
 		{todo.title}
 	</div>
 	<div class="w-4 h-4 text-gray-500">

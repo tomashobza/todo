@@ -8,7 +8,7 @@
 	import { fade } from 'svelte/transition';
 	import { selectedTodo } from '$ts/stores';
 	import { goto } from '$app/navigation';
-	import { updateTodoListData } from '$ts/';
+	import { updateTodoListData } from '$ts/index';
 	import { omitId } from '$lib/utils/misc/withoutId';
 
 	let newItem;
@@ -66,7 +66,7 @@
 		</div>
 
 		<div class="w-full flex flex-col flex-grow items-stretch gap-4 p-4 overflow-y-auto">
-			{#each $selectedTodo.list as item, i (item)}
+			{#each $selectedTodo.list || [] as item, i (item)}
 				<TodoDetailItem {item} {i} on:remove={removeItem} on:doneChanged={push} />
 			{/each}
 		</div>

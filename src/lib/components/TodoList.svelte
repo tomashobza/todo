@@ -5,7 +5,8 @@
 
 	import { flip } from 'svelte/animate';
 	import { dndzone } from 'svelte-dnd-action';
-	import { savedTodos, todos } from '$ts/stores';
+	import { savedTodos } from '$ts/stores';
+	import { fade } from 'svelte/transition';
 
 	const flipDurationMs = 300;
 
@@ -20,8 +21,8 @@
 </script>
 
 <div class="w-full h-full flex flex-col items-stretch overflow-y-auto overflow-x-hidden px-4 gap-4 pb-20" use:dndzone={{ items, flipDurationMs, dropTargetStyle: { outline: 'none' } }} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
-	{#each items as item (item.id)}
-		<div animate:flip={{ duration: flipDurationMs }}>
+	{#each items as item, i (item.id)}
+		<div animate:flip={{ duration: flipDurationMs }} in:fade={{ duration: 500, delay: i * 100 }}>
 			<TodoCard todo={item} />
 		</div>
 	{/each}
