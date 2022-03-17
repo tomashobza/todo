@@ -46,8 +46,6 @@ export async function addTodo(id: string) {
 
 	const data = await fetchTodoListData(id);
 
-	console.log({ data });
-
 	if (data) {
 		saveTodo(id);
 		return true;
@@ -58,8 +56,6 @@ export async function addTodo(id: string) {
 
 /** Creates a new TODO instance in database with set `title`. */
 export async function createTodo(title: string) {
-	console.log(title);
-
 	const ref = await addDoc(collection(db, 'todos'), {
 		title: title
 	});

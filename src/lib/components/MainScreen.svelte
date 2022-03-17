@@ -5,8 +5,6 @@
 	import { todos } from '$ts/stores';
 
 	export let todoOpen: boolean;
-
-	$: console.log($todos);
 </script>
 
 <div class="w-full h-full relative flex flex-col items-center">
