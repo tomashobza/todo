@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import ArrowLeft from '$lib/svg/ArrowLeft.svelte';
 	import Share from '$lib/svg/Share.svelte';
 	import Save from '$lib/svg/Save.svelte';
@@ -10,6 +10,7 @@
 	import { goto } from '$app/navigation';
 	import { updateTodoListData } from '$ts/index';
 	import { omitId } from '$lib/utils/misc/withoutId';
+	import { page } from '$app/stores';
 
 	let newItem;
 
@@ -25,7 +26,7 @@
 		navigator.share({
 			title: $selectedTodo.title,
 			text: 'I created a TODO list, check it out!',
-			url: $selectedTodo.todoId
+			url: $page?.url.href,
 		});
 	}
 
