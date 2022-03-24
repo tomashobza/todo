@@ -8,7 +8,7 @@
 	import { fade } from 'svelte/transition';
 	import { selectedTodo } from '$ts/stores';
 	import { goto } from '$app/navigation';
-	import { updateTodoListData } from '$ts/index';
+	import { popup, updateTodoListData } from '$ts/index';
 	import { omitId } from '$lib/utils/misc/withoutId';
 	import { page } from '$app/stores';
 
@@ -21,13 +21,16 @@
 	}
 
 	function shareTodo() {
-		// TODO add copy to clipboard when no navigator.share
-
-		navigator.share({
-			title: $selectedTodo.title,
-			text: 'I created a TODO list, check it out!',
-			url: $page?.url.href,
-		});
+		if (navigator?.share) {
+			navigator.share({
+				title: $selectedTodo.title,
+				text: 'I created a TODO list, check it out!',
+				url: $page?.url.href,
+			});
+		} else {
+			navigator?.clipboard.writeText( $page?.url.href);
+			popup("Copied to clipboard!", "good");
+		}
 	}
 
 	function removeItem(e) {
